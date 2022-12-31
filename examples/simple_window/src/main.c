@@ -8,18 +8,35 @@ int main(int argc, const char* argv[]){
   printf("hello, sailor!\n");
 
   n1_Window* window = platform_create_window("simple window");
-  if(!platform_create_glcontext(window)){
+  if(!platform_create_glcontext(window, 3, 2, 0)){
     perror("failed to create glContext\n");
     return 1;
   }
+  
   uint64_t ns_start = platform_get_time_ns();
   uint64_t ms_start = platform_get_time_micros();
 
   int ns_fps = 0;
   int ms_fps = 0;
   int idx    = 0;
-  
-  for(;;){
+
+  int is_running = 1;
+  while(is_running){
+
+    //handle window events
+    platform_window_get_events(window);
+
+    n1_WindowEvent e = platform_window_get_next_event(window);
+    while(e.type){
+      printf("-> handle %d event\n", e.type);
+      if(e.type == EVENT_QUIT){
+        printf("quit\n");
+        is_running = 0;
+      }
+      e = platform_window_get_next_event(window);
+    }
+
+    
     ns_fps ++;
     ms_fps ++;
     idx ++;
@@ -30,7 +47,6 @@ int main(int argc, const char* argv[]){
 
     uint64_t ns_end = platform_get_time_ns();
     uint64_t ms_end = platform_get_time_micros();
-
     
     if(platform_convert_micros_to_seconds(ms_end - ms_start) >= 1){
       ms_start += second_to_micros;
@@ -44,9 +60,9 @@ int main(int argc, const char* argv[]){
       ns_fps = 0;
           
     }
-        
   }
   
+  platform_free_glcontext(window);  
   platform_free_window(window);
   return 0;
 }

@@ -21,7 +21,11 @@ typedef struct n1_GLContext{
   
 } n1_GLContext;
 
-int  platform_create_glcontext(struct n1_Window* window);
+int  platform_create_glcontext(struct n1_Window* window, int major, int minor, int debug);
+void platform_free_glcontext(struct n1_Window* window);
 void platform_window_swap_glbuffers(struct n1_Window* window);
+
+//returns 0 on success
+int platform_gl_swap_interval(int i);
 
 #endif

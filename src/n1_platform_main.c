@@ -1,3 +1,5 @@
 #include "window/n1_window_main.c"
 #include "thread/n1_thread_main.c"
 #include "time/n1_time_main.c"
+#include "file_system/n1_file_system_main.c"
+#include "process/n1_process_main.c"

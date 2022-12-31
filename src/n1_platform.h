@@ -12,5 +12,11 @@
 //time
 #include "time/n1_time.h"
 
+//file system
+#include "file_system/n1_file_system.h"
+#include "file_system/n1_path.h"
+
+//process
+#include "process/n1_process.h"
 
 #endif
