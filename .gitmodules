@@ -1,0 +1,3 @@
+[submodule "dependencies/c_allocator"]
+	path = dependencies/c_allocator
+	url = git@github.com:hpeteri/c_allocator

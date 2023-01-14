@@ -2,18 +2,29 @@
 #define N1_WINDOW_GL_H
 
 #include "n1_window.h"
+#if defined (__WIN32)
+#include <GL/gl.h>
 
-#if defined(__linux__)
+#elif defined (__linux__)
+
 #include "GL/glew.h"
 #include <GL/glx.h>
 #include <GL/gl.h>
+
 #endif
 
 struct n1_Window;
 
 typedef struct n1_GLContext{
-#if defined(__linux__)
+
+#if defined(_WIN32)
+
+  HGLRC handle;
+
+#elif defined(__linux__)
+
   GLXContext handle;
+  
 #endif
 
   int32_t major;

@@ -8,6 +8,7 @@
 #include "thread/n1_fence.h"
 
 typedef struct WindowCreationArgs{
+
   const char* title;
   n1_Window*  window;
   n1_Fence*   fence;
@@ -17,17 +18,24 @@ typedef struct WindowCreationArgs{
 
 
 #if defined(_WIN32)
+
 #include "n1_window_win32.c"
+#include "n1_window_gl_win32.c"
+
 #elif defined(__linux__)
+
 #include "n1_window_linux.c"
 #include "n1_window_gl_linux.c"
+
 #endif
 
 
 n1_Window* platform_create_window(const char* title, int width, int height){
   n1_Window* window = malloc(sizeof(n1_Window));
-  if(!window)
+
+  if(!window){
     return NULL;
+  }
   
   memset(window, 0, sizeof(*window));
   

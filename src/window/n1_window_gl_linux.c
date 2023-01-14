@@ -118,6 +118,7 @@ int  platform_create_glcontext(struct n1_Window* window, int major, int minor, i
 void platform_free_glcontext(struct n1_Window* window){
   glXDestroyContext(window->display, window->gl_context.handle);
 }
+
 void platform_window_swap_glbuffers(n1_Window* window){
   glXSwapBuffers(window->display, window->handle);
 }

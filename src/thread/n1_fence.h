@@ -2,12 +2,16 @@
 #define N1_FENCE_H
 
 typedef struct n1_Fence{
+
 #if defined(_WIN32)
+
   HANDLE handle;
 #elif defined(__linux__)
+
   n1_Mutex mutex;
   pthread_cond_t cond;
 #endif
+
 } n1_Fence;
 
 

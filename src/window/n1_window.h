@@ -16,14 +16,20 @@
 #include "window/n1_window_keycode.h"
 
 typedef struct n1_Window{
-  
-#if defined(__linux__)
+
+#if defined(_WIN32)
+  HANDLE    handle;
+  HINSTANCE hinstance;
+  HDC       hdc;
+
+#elif defined(__linux__)
   Window       handle;
   Display*     display;
   VisualID     visual_id;
+#endif
+
   n1_Mutex     mutex;
   n1_GLContext gl_context;
-#endif
 
   int                  event_idx;
   n1_WindowEventBuffer event_buffer;

@@ -1,6 +1,13 @@
 #!/bin/bash
 
 PROJECT_NAME="simple_window"
+OUTPUT_NAME="./build/$PROJECT_NAME"
+
+
+LIBS+="-lX11 -pthread -lGL ../../dependencies/GLEW/lib/libGLEW.a "
+
+OUTPUT_NAME+=".a"
+
 
 WARNINGS="-Wformat=2 
           -Wmain 
@@ -9,11 +16,10 @@ WARNINGS="-Wformat=2
           -Wsign-compare 
           -Werror"
 
-LIBS="-lX11 -pthread -lGL ../../dependencies/GLEW/lib/libGLEW.a"
 COMPILER_FLAGS=""
 INCLUDE_FOLDERS="-I ../../src/ 
                  -I ../../dependencies/GLEW/include/
-                 -I ./dependencies/"
+                 -I ../../dependencies/"
 
 pushd "$(dirname ${BASH_SOURCE[0]})"
 
@@ -34,7 +40,8 @@ else
     PREPROCESSOR="-s"
 fi
 
-gcc $PREPROCESSOR $COMPILER_FLAGS $WARNINGS $INCLUDE_FOLDERS "./src/main.c" -o "./build/main.a" $LIBS
+time gcc $PREPROCESSOR $COMPILER_FLAGS $WARNINGS $INCLUDE_FOLDERS $LIBS "./src/main.c" -o $OUTPUT_NAME
+
 popd
 
 exit 0

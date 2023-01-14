@@ -359,8 +359,6 @@ static void* platform_create_window_2(WindowCreationArgs* args){
   const int   width  = args->width;
   const int   height = args->height;
 
-
-
   //Xlib support for concurrent threads.
   //
   XInitThreads();
