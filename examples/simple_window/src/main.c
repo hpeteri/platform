@@ -19,6 +19,7 @@ int main(int argc, const char* argv[]){
     return 1;
   }
 
+  platform_gl_swap_interval(0);
   platform_init_time();
   
   uint64_t ns_start = platform_get_time_ns();
@@ -32,7 +33,7 @@ int main(int argc, const char* argv[]){
 
   printf("%s\n", get_exe_dir());
   printf("%s\n", get_cwd());
-  
+
   while(is_running){
 
     //handle window events

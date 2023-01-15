@@ -18,9 +18,9 @@ compiler_options = """
 
 """
 libs             = """
-Opengl32.lib
 Gdi32.lib
 User32.lib
+Opengl32.lib
 Shlwapi.lib
 ../../dependencies/GLEW/lib/glew32s.lib
 """

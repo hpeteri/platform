@@ -16,10 +16,11 @@ FileContent read_entire_file(const char* file_path, n1_Allocator allocator){
       return file_content;
     }
       
-    file_content.size = file_stat.st_size + 1;
-    file_content.data = allocator.alloc(file_content.size);
+    file_content.size = file_stat.st_size;
+    file_content.data = allocator.alloc(file_content.size + 1);
             
     read(file, file_content.data, file_content.size);
+    ((char*)file_content.data)[file_content.size] = 0;
     close(file);
   }
   

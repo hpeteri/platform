@@ -15,16 +15,14 @@ FileContent read_entire_file(const char* file_path, n1_Allocator allocator){
     LARGE_INTEGER size;
     GetFileSizeEx(file, &size);
 
-    file_content.size = size.QuadPart + 1;
-    file_content.data = allocator.alloc(file_content.size);
+    file_content.size = size.QuadPart;
+    file_content.data = allocator.alloc(file_content.size + 1);
 
-      
     ReadFile(file,
              file_content.data,
              file_content.size,
              NULL,
              NULL);
-    
     CloseHandle(file);
   }
 

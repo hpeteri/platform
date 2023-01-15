@@ -1,13 +1,6 @@
 #include <windows.h>
 #include <wingdi.h>
 
-
-#define GLEW_STATIC
-#include "GL/glew.h"
-
-#include <GL/GL.h>
-#include "GL/wglew.h"
-
 int platform_create_glcontext(struct n1_Window* window, int major, int minor, int debug){
   HDC hdc = window->hdc;
 
@@ -36,8 +29,9 @@ int platform_create_glcontext(struct n1_Window* window, int major, int minor, in
   if(!SetPixelFormat(hdc, given_pdf_idx, &given_pdf)){
     return 0;
   }
-
+  
   HGLRC temp_gl_context = wglCreateContext(hdc);
+  
 
   if(!wglMakeCurrent(hdc, temp_gl_context)){
     MessageBox(window->handle, "failed to initialize opengl.", "ERROR", MB_ICONERROR);
@@ -50,7 +44,7 @@ int platform_create_glcontext(struct n1_Window* window, int major, int minor, in
     //@LEAK CONTEXT
     return 0;
   }
-
+    
   // create actual context we want
   
   const int pixel_format_attribs[] = {
@@ -104,9 +98,25 @@ void platform_free_glcontext(struct n1_Window* window){
 }
 
 void platform_window_swap_glbuffers(n1_Window* window){
-  SwapBuffers(window->hdc);
+ SwapBuffers(window->hdc);
 }
 
 int platform_gl_swap_interval(int i){
+
+  static BOOL (*wglSwapIntervalEXT)(int);
+  
+  if(!wglSwapIntervalEXT){
+    wglSwapIntervalEXT = (BOOL (*)(int))wglGetProcAddress("wglSwapIntervalEXT");
+    if(!wglSwapIntervalEXT){
+      perror("failed to get glSwapInterval");
+    }
+  }
+
+  if(wglSwapIntervalEXT){
+    wglSwapIntervalEXT(i);
+  }
+
+  
   return 1;
+
 }

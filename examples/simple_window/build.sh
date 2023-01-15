@@ -6,7 +6,9 @@ OUTPUT_NAME="./build/$PROJECT_NAME"
 
 LIBS+="-lX11 -pthread -lGL ../../dependencies/GLEW/lib/libGLEW.a "
 
+
 OUTPUT_NAME+=".a"
+
 
 
 WARNINGS="-Wformat=2 

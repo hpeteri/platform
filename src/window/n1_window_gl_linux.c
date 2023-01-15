@@ -132,18 +132,15 @@ int platform_gl_swap_interval(int i){
   }
 
   
-  if(!glXSwapIntervalEXT){
-    return 1;
-  }
+  if(glXSwapIntervalEXT){
+    
+    Display     *dpy      = glXGetCurrentDisplay();
+    GLXDrawable  drawable = glXGetCurrentDrawable();
   
-  Display *dpy = glXGetCurrentDisplay();
-  GLXDrawable drawable = glXGetCurrentDrawable();
-  const int interval = 1;
-
-  if(drawable){
-    glXSwapIntervalEXT(dpy, drawable, interval);
-    return 0;
+    if(drawable){
+      glXSwapIntervalEXT(dpy, drawable, i);
+      return 0;
+    }
   }
-  
   return 1;
 }
