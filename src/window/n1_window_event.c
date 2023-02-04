@@ -44,9 +44,9 @@ static void platform_window_swap_event_buffers(n1_Window* window){
   if(window->event_buffer_swap.size_event.type != 0){
     n1_WindowEvent event = window->event_buffer_swap.size_event;
     platform_window_push_new_event(window, event);
-
-    window->width = max(event.size.width, 1);
-    window->height = max(event.size.height, 1);
+    
+    window->width  = event.size.width  >  1 ? event.size.width  : 1;
+    window->height = event.size.height >  1 ? event.size.height : 1;
   }
   //swap
   n1_WindowEventBuffer temp = window->event_buffer;

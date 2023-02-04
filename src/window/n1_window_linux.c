@@ -311,12 +311,14 @@ void platform_handle_window_event(n1_Window* window, XEvent e){
   case CirculateNotify:
     break;
   case ConfigureNotify:
-    n1_WindowEvent ev;
-    ev.type = EVENT_SIZE;
-    ev.size.width = e.xconfigure.width;
-    ev.size.height = e.xconfigure.height;
-    platform_window_push_event(window, ev);
-    break;
+    {
+      n1_WindowEvent ev;
+      ev.type = EVENT_SIZE;
+      ev.size.width = e.xconfigure.width;
+      ev.size.height = e.xconfigure.height;
+      platform_window_push_event(window, ev);
+      break;
+    }
   case CreateNotify:
     break;
   case DestroyNotify:
@@ -336,9 +338,11 @@ void platform_handle_window_event(n1_Window* window, XEvent e){
   case ColormapNotify:
     break;
   case ClientMessage:
-    n1_WindowEvent e = {.type = EVENT_QUIT};
-    platform_window_push_event(window, e);
-    break;
+    {
+      n1_WindowEvent ev = {.type = EVENT_QUIT};
+      platform_window_push_event(window, ev);
+      break;
+    }
   case PropertyNotify:
     break;
   case SelectionClear:
@@ -370,7 +374,6 @@ static void* platform_create_window_2(WindowCreationArgs* args){
     return NULL;
   }
 
-  Screen* screen         = DefaultScreenOfDisplay(display);
   int     screen_id      = DefaultScreen(display);
   Visual* default_visual = XDefaultVisual(display, screen_id);
   Window  root_window    = RootWindow(display, screen_id);
@@ -409,7 +412,6 @@ static void* platform_create_window_2(WindowCreationArgs* args){
 
  
     
-  VisualID visual_id = 0;
   window->handle    = w;
   window->display   = display;
     

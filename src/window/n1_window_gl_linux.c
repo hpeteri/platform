@@ -14,9 +14,7 @@ typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*,
 int  platform_create_glcontext(struct n1_Window* window, int major, int minor, int debug){
   Window   window_handle = window->handle;
   Display* display       = window->display;
-  Screen*  screen        = DefaultScreenOfDisplay(display);
-  int      screen_id     = DefaultScreen(display);
-    
+        
   GLint glxAttribs[] = {
     GLX_X_RENDERABLE    , True,
     GLX_DRAWABLE_TYPE   , GLX_WINDOW_BIT,

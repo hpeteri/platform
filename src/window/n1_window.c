@@ -92,6 +92,5 @@ n1_WindowEvent platform_window_get_next_event(n1_Window* window){
     return event;
   }
 
-  return window->event_buffer.events[window->event_idx++];
-  
+  return window->event_buffer.events[window->event_idx++];  
 }

@@ -5,8 +5,6 @@
 #include "n1_platform.h"
 
 int main(int argc, const char* argv[]){
-  printf("hello, sailor!\n");
-
   n1_Window* window = platform_create_window("simple window", 500, 500);
 
   if(!window || !window->handle){
@@ -19,7 +17,7 @@ int main(int argc, const char* argv[]){
     return 1;
   }
 
-  platform_gl_swap_interval(0);
+  platform_gl_swap_interval(1);
   platform_init_time();
   
   uint64_t ns_start = platform_get_time_ns();
